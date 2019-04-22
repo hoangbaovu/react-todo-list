@@ -1,0 +1,16 @@
+.task-name {
+  cursor: pointer;
+}
+
+.complete {
+  opacity: .5;
+  text-decoration: line-through;
+  transition: .3s all ease-in-out;
+}
+
+.complete:before,
+.complete:after,
+.task-name:before,
+.task-name:after {
+  content: "\00a0\00a0";
+}
