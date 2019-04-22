@@ -7,6 +7,8 @@ const resources = {
   en: {
     translation: {
       "CHOOSE_LANGUAGE": "Choose Language",
+      "LANG_EN": "EN",
+      "LANG_VI": "VI",
       "DELETE": "Delete",
       "EDIT": "Edit",
       "SEARCH": "Search",
@@ -26,6 +28,8 @@ const resources = {
   vn: {
     translation: {
       "CHOOSE_LANGUAGE": "Chọn ngôn ngữ",
+      "LANG_EN": "EN",
+      "LANG_VI": "VI",
       "DELETE": "Xoá",
       "EDIT": "Sửa",
       "SEARCH": "Tìm kiếm",
