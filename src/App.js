@@ -8,7 +8,7 @@ import Todo from './pages/Todo';
 import TopMenu from './components/TopMenu';
 
 function App() {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const changeLanguage = lng => {
     i18n.changeLanguage(lng);
@@ -20,7 +20,8 @@ function App() {
       <Container className="my-5">
         <Row>
           <Col md={12}>
-            <div className="float-right">
+            <div className="d-flex float-right">
+              <p style={{ marginTop: '10px' }}>{t('CHOOSE_LANGUAGE')}</p>
               <Button className="mx-2" onClick={() => changeLanguage("vn")}>vn</Button>
               <Button onClick={() => changeLanguage("en")}>en</Button>
             </div>

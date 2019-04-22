@@ -6,6 +6,7 @@ import { initReactI18next } from "react-i18next";
 const resources = {
   en: {
     translation: {
+      "CHOOSE_LANGUAGE": "Choose Language",
       "DELETE": "Delete",
       "EDIT": "Edit",
       "SEARCH": "Search",
@@ -24,6 +25,7 @@ const resources = {
   },
   vn: {
     translation: {
+      "CHOOSE_LANGUAGE": "Chọn ngôn ngữ",
       "DELETE": "Xoá",
       "EDIT": "Sửa",
       "SEARCH": "Tìm kiếm",
