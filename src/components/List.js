@@ -12,16 +12,21 @@ class List extends Component {
 
   render() {
     const { items, t } = this.props;
-    const renderItem = items.map((item, index) => {
-      return (
-        <Item
-          onClickEdit={this.props.onClickEdit}
-          onClickDelete={this.props.onClickDelete}
-          onClickComplete={this.props.onClickComplete}
-          key={index} item={item} index={index}
-        />
-      );
-    })
+
+    let renderItem = <tr><th className="text-center" colspan={4}>{t('TASK_NO_LIST')}</th></tr>
+    if (items.length > 0) {
+      renderItem = items.map((item, index) => {
+        return (
+          <Item
+            onClickEdit={this.props.onClickEdit}
+            onClickDelete={this.props.onClickDelete}
+            onClickComplete={this.props.onClickComplete}
+            key={index} item={item} index={index}
+          />
+        );
+      });
+    };
+
     return (
       <Table striped hover>
         <thead>

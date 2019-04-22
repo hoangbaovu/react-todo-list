@@ -16,6 +16,7 @@ const resources = {
       "TASK_DONE": "Have {{count}} completed tasks.",
       "TASK_UNDONE": "Have {{count}} unfinished tasks.",
       "TASK_ADD": "Add task",
+      "TASK_NO_LIST": "No Task",
       "NAVBAR_HOME": "Home",
       "NAVBAR_TODOS": "Todos",
       "NAVBAR_ABOUT": "About"
@@ -33,6 +34,7 @@ const resources = {
       "TASK_DONE": "Có {{count}} công việc đã hoàn thành.",
       "TASK_UNDONE": "Có {{count}} công việc chưa hoàn thành.",
       "TASK_ADD": "Thêm công việc",
+      "TASK_NO_LIST": "Chưa có công việc",
       "NAVBAR_HOME": "Trang chủ",
       "NAVBAR_TODOS": "Công việc",
       "NAVBAR_ABOUT": "Giới thiệu"
