@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   Collapse,
   Container,
@@ -9,11 +9,11 @@ import {
   NavItem,
   NavLink,
 } from 'reactstrap';
-import { Trans } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { Link, NavLink as RRNavLink } from "react-router-dom";
 
-export default class TopMenu extends React.Component {
+class TopMenu extends Component {
   constructor(props) {
     super(props);
 
@@ -28,6 +28,7 @@ export default class TopMenu extends React.Component {
     });
   }
   render() {
+    const { t } = this.props;
     return (
       <Navbar color="light" light expand="md">
         <Container>
@@ -37,17 +38,17 @@ export default class TopMenu extends React.Component {
             <Nav className="ml-auto" navbar>
               <NavItem>
                 <NavLink exact tag={RRNavLink} activeClassName="active" to="/">
-                  <Trans i18nKey="NAVBAR_HOME"></Trans>
+                  {t('NAVBAR_HOME')}
                 </NavLink>
               </NavItem>
               <NavItem>
                 <NavLink tag={RRNavLink} activeClassName="active" to="/todos">
-                  <Trans i18nKey="NAVBAR_TODOS"></Trans>
+                  {t('NAVBAR_TODOS')}
                 </NavLink>
               </NavItem>
               <NavItem>
                 <NavLink tag={RRNavLink} activeClassName="active" to="/about/">
-                  <Trans i18nKey="NAVBAR_ABOUT"></Trans>
+                  {t('NAVBAR_ABOUT')}
                 </NavLink>
               </NavItem>
             </Nav>
@@ -64,3 +65,5 @@ TopMenu.propTypes = {
   expand: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   tag: PropTypes.oneOfType([PropTypes.func, PropTypes.string])
 }
+
+export default withTranslation()(TopMenu);

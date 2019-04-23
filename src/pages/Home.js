@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Row, Col, Card, Button } from 'reactstrap';
 import { Link } from "react-router-dom";
-import { Trans } from 'react-i18next';
+import { Trans, withTranslation } from 'react-i18next';
 
 class Home extends Component {
   constructor(props) {
@@ -21,10 +21,11 @@ class Home extends Component {
 
   render() {
     let { items } = this.state;
+    let { t } = this.props;
     let incompleteTask = items.filter(item => item.complete);
     let completeTask = items.filter(item => item.complete === false);
 
-    let renderCompleteTask = <Trans i18nKey="TASK_NO_LIST" />;
+    let renderCompleteTask = t('TASK_NO_LIST');
     if (items.length > 0) {
       renderCompleteTask = <Trans i18nKey="TASK_UNDONE" count={completeTask.length} />;
     }
@@ -52,4 +53,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default withTranslation()(Home);

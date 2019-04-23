@@ -13,7 +13,7 @@ class List extends Component {
   render() {
     const { items, t } = this.props;
 
-    let renderItem = <tr><th className="text-center" colspan={4}>{t('TASK_NO_LIST')}</th></tr>
+    let renderItem = <tr><th className="text-center" colSpan={4}>{t('TASK_NO_LIST')}</th></tr>
     if (items.length > 0) {
       renderItem = items.map((item, index) => {
         return (
