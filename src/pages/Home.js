@@ -15,7 +15,7 @@ class Home extends Component {
   componentWillMount() {
     let items = JSON.parse(localStorage.getItem('task')) || [];
     this.setState({
-      items: items
+      items
     });
   }
 
@@ -24,12 +24,16 @@ class Home extends Component {
     let incompleteTask = items.filter(item => item.complete);
     let completeTask = items.filter(item => item.complete === false);
 
+    let renderCompleteTask = <Trans i18nKey="TASK_NO_LIST" />;
+    if (items.length > 0) {
+      renderCompleteTask = <Trans i18nKey="TASK_UNDONE" count={completeTask.length} />;
+    }
     return (
       <Fragment>
         <Row>
           <Col md={4}>
             <Card body inverse color="danger">
-              <Trans i18nKey="TASK_UNDONE" count={completeTask.length} />
+              {renderCompleteTask}
             </Card>
           </Col>
           <Col md={4}>
