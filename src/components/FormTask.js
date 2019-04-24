@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Col, Button, Form, FormGroup, Input } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { actionSubmitForm } from '../actions/index';
 
 class FormTask extends Component {
   constructor(props) {
@@ -14,20 +17,20 @@ class FormTask extends Component {
     }
   }
 
-  componentWillMount() {
-    this.updateItem(this.props.itemSelected);
-  }
+  // componentWillMount() {
+  //   this.updateItem(this.props.itemSelected);
+  // }
 
-  componentWillReceiveProps(nextProps) {
-    this.updateItem(nextProps.itemSelected);
+  // componentWillReceiveProps(nextProps) {
+  //   this.updateItem(nextProps.itemSelected);
 
-    /**
-     * nextProps là giá trị xem trước của prop mà component sắp được nhận để render.
-     * Nếu component nhận props thì cập nhật lại item
-     * https://viblo.asia/p/vong-doi-cua-component-trong-react-gGJ59XaJlX2
-     * https://luubinhan.github.io/blog/2018-06-28-huong-dan-thay-component-will-receive-props/
-     */
-  }
+  //   /**
+  //    * nextProps là giá trị xem trước của prop mà component sắp được nhận để render.
+  //    * Nếu component nhận props thì cập nhật lại item
+  //    * https://viblo.asia/p/vong-doi-cua-component-trong-react-gGJ59XaJlX2
+  //    * https://luubinhan.github.io/blog/2018-06-28-huong-dan-thay-component-will-receive-props/
+  //    */
+  // }
 
   updateItem(item) {
     if (item !== null) {
@@ -55,7 +58,7 @@ class FormTask extends Component {
       name: task_name,
       complete: task_complete
     }
-    this.props.onClickSubmit(item);
+    this.props.formSubmit(item);
     event.preventDefault();
   }
 
@@ -85,4 +88,13 @@ FormTask.propTypes = {
   onClickSubmit: PropTypes.func,
 };
 
-export default withTranslation()(FormTask);
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    formSubmit: (item) => dispatch(actionSubmitForm(item))
+  }
+}
+
+export default compose(
+  connect(null, mapDispatchToProps),
+  withTranslation()
+)(FormTask)

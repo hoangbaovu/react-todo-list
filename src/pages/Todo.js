@@ -4,8 +4,6 @@ import FormTask from './../components/FormTask';
 import List from './../components/List';
 import Search from './../components/Search';
 
-const uuidv4 = require('uuid/v4');
-
 class Todo extends Component {
   constructor(props) {
     super(props);
@@ -13,15 +11,15 @@ class Todo extends Component {
     this.state = {
       items: [],
       strSearch: '',
-      itemSelected: null,
+      // itemSelected: null,
     };
   }
 
-  handleEdit = item => {
-    this.setState({
-      itemSelected: item,
-    });
-  }
+  // handleEdit = item => {
+  //   this.setState({
+  //     itemSelected: item,
+  //   });
+  // }
 
   handleComplete = item => {
     let { items } = this.state;
@@ -42,44 +40,37 @@ class Todo extends Component {
     localStorage.setItem('task', JSON.stringify(items));
   }
 
-  handleSubmit = item => {
-    let { items } = this.state;
+  // handleSubmit = item => {
+  //   let { items } = this.state;
 
-    if (item.id !== '') { //edit
-      items.forEach((value, key) => {
-        if (value.id === item.id) {
-          items[key].name = item.name;
-        }
-      });
-    } else { // add
-      items.push({
-        id: uuidv4(),
-        name: item.name,
-        complete: item.complete
-      });
-    }
+  //   if (item.id !== '') { //edit
+  //     items.forEach((value, key) => {
+  //       if (value.id === item.id) {
+  //         items[key].name = item.name;
+  //       }
+  //     });
+  //   } else { // add
+  //     items.push({
+  //       id: uuidv4(),
+  //       name: item.name,
+  //       complete: item.complete
+  //     });
+  //   }
 
-    this.setState({
-      items: items
-    })
+  //   this.setState({
+  //     items: items
+  //   })
 
-    localStorage.setItem('task', JSON.stringify(items));
-  }
+  //   localStorage.setItem('task', JSON.stringify(items));
+  // }
   render() {
-    let { itemSelected } = this.state;
     return (
       <Fragment>
         <Row>
-          <FormTask
-            itemSelected={itemSelected}
-            onClickSubmit={this.handleSubmit}
-          />
+          <FormTask />
           <Search />
         </Row>
-        <List
-          onClickEdit={this.handleEdit}
-          onClickComplete={this.handleComplete}
-        />
+        <List />
       </Fragment>
     );
   }
