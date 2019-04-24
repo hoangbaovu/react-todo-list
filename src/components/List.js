@@ -3,6 +3,8 @@ import { Table } from 'reactstrap';
 import PropTypes from 'prop-types';
 import Item from './Item';
 import { withTranslation } from 'react-i18next';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 
 class List extends Component {
   constructor(props) {
@@ -48,4 +50,13 @@ List.propTypes = {
   items: PropTypes.array
 };
 
-export default withTranslation()(List);
+const mapStateToProps = state => {
+  return {
+    items: state.items
+  }
+}
+
+export default compose(
+  connect(mapStateToProps),
+  withTranslation()
+)(List)

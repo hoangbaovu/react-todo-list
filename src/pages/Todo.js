@@ -155,7 +155,6 @@ class Todo extends Component {
           onClickEdit={this.handleEdit}
           onClickDelete={this.handleDelete}
           onClickComplete={this.handleComplete}
-          items={items}
         />
       </Fragment>
     );
