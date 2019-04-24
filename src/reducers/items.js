@@ -1,10 +1,10 @@
-import * as types from '../constants/ActionTypes';
+// import * as types from '../constants/ActionTypes';
 import * as config from '../constants/Config';
 
 let initState = [
-  // { id: "1", name: "Giat Ao", complete: false },
-  // { id: "2", name: "Giat Quan", complete: false },
-  // { id: "3", name: "Lau San", complete: false }
+  { id: "1", name: "Giat Ao", complete: false },
+  { id: "2", name: "Giat Quan", complete: false },
+  { id: "3", name: "Lau San", complete: false }
 ];
 
 let tasks = JSON.parse(localStorage.getItem(config.ITEMS_FROM_LOCAL_STORAGE));

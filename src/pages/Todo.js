@@ -17,45 +17,6 @@ class Todo extends Component {
     };
   }
 
-  componentWillMount() {
-    console.log('componentWillMount - 1');
-    let items = JSON.parse(localStorage.getItem('task')) || [];
-    this.setState({
-      items: items
-    });
-    /**
-     * Được gọi một lần trên cả client và server trước khi render diễn ra.
-     * Không thực thi các hàm xử lý, tính toán DOM lúc này
-     */
-  }
-
-  // componentDidMount() {
-  //   console.log('componentDidMount - 3');
-
-  //   /**
-  //     Hàm này chỉ thực hiện 1 lần duy nhất
-  //     Hữu dụng khi bạn làm việc với Map, bởi vì map chỉ render được khi có node (id) trong DOM
-  //     Nơi thực hiện Fetch API?
-  //     Dùng kết hợp với các Javascript Framework khác
-  //     và bất kỳ hàm làm hoãn sự thực thi như SetTimeOut hoặc SetInterval. 
-  //   */
-  // }
-
-  // componentWillReceiveProps(newProps) {
-  //   console.log('componentWillReceiveProps - 4', newProps);
-
-  //   /**
-  //    * Thực thi liên tục ngay khi các Props có sự thay đổi và trước khi một render khác được gọi.
-  //    * Thường sử dụng để thay đổi trạng thái (state) của component phụ thuộc props
-  //    */
-  // }
-
-  handleSearch = value => {
-    this.setState({
-      strSearch: value
-    });
-  }
-
   handleEdit = item => {
     this.setState({
       itemSelected: item,
@@ -121,24 +82,7 @@ class Todo extends Component {
     localStorage.setItem('task', JSON.stringify(items));
   }
   render() {
-    let itemsOrigin = (this.state.items !== null) ? [...this.state.items] : [];
-    let items = [];
-    let { strSearch, itemSelected } = this.state;
-
-    // Search
-    // Items: abc, def, ghj
-    // input strSearch : ab
-    // output: abc
-
-    if (strSearch.length > 0) {
-      itemsOrigin.forEach(item => {
-        if (item.name.toLowerCase().indexOf(strSearch) !== -1) {
-          items.push(item);
-        }
-      });
-    } else {
-      items = itemsOrigin;
-    }
+    let { itemSelected } = this.state;
     return (
       <Fragment>
         <Row>
@@ -146,10 +90,7 @@ class Todo extends Component {
             itemSelected={itemSelected}
             onClickSubmit={this.handleSubmit}
           />
-          <Search
-            onClickSearch={this.handleSearch}
-            strSearch={this.props.strSearch}
-          />
+          <Search />
         </Row>
         <List
           onClickEdit={this.handleEdit}

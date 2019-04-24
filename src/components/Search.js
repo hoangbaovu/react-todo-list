@@ -2,30 +2,33 @@ import React, { Component } from 'react';
 import { Col, Input, Button } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
+import { actionSearch } from './../actions/index';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 
 class Search extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      strSearch: ''
+      search: ''
     }
   }
 
   handleSearch = () => {
-    this.props.onClickSearch(this.state.strSearch);
+    this.props.goSearch(this.state.search);
   }
 
   handleClear = () => {
     this.setState({
-      strSearch: ''
+      search: ''
     });
-    this.props.onClickSearch('');
+    this.props.goSearch('');
   }
 
   handleChange = event => {
     this.setState({
-      strSearch: event.target.value
+      search: event.target.value
     });
   }
 
@@ -35,7 +38,7 @@ class Search extends Component {
       <Col md={6}>
         <div className="d-flex">
           <Input
-            value={this.state.strSearch}
+            value={this.state.search}
             onChange={this.handleChange}
             type="text"
             placeholder={t('SEARCH_PLACEHOLDER')}
@@ -59,4 +62,21 @@ Search.propTypes = {
   onClickSearch: PropTypes.func
 };
 
-export default withTranslation()(Search);
+const mapStateToProps = state => {
+  return {
+    search: state.search
+  }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    goSearch: (search) => {
+      dispatch(actionSearch(search));
+    }
+  }
+}
+
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withTranslation()
+)(Search)

@@ -13,7 +13,21 @@ class List extends Component {
   }
 
   render() {
-    const { items, t } = this.props;
+    let { items, search, t } = this.props;
+    let itemsOrigin = (items !== null) ? [...items] : [];
+
+    // Search
+    if (search.length > 0) {
+      items = [];
+      itemsOrigin.forEach(item => {
+        if (item.name.toLowerCase().indexOf(search) !== -1) {
+          return items.push(item);
+        }
+      });
+
+    } else {
+      items = itemsOrigin;
+    }
 
     let renderItem = <tr><th className="text-center" colSpan={4}>{t('TASK_NO_LIST')}</th></tr>
     if (items.length > 0) {
@@ -52,7 +66,8 @@ List.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    items: state.items
+    items: state.items,
+    search: state.search
   }
 }
 
