@@ -35,7 +35,6 @@ class List extends Component {
         return (
           <Item
             onClickEdit={this.props.onClickEdit}
-            onClickDelete={this.props.onClickDelete}
             onClickComplete={this.props.onClickComplete}
             key={index} item={item} index={index}
           />
@@ -61,7 +60,8 @@ class List extends Component {
 }
 
 List.propTypes = {
-  items: PropTypes.array
+  items: PropTypes.array,
+  search: PropTypes.string
 };
 
 const mapStateToProps = state => {

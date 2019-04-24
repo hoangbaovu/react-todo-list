@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { Button } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { actionDeleteItem } from '../actions/index';
+
 class Item extends Component {
   constructor(props) {
     super(props);
@@ -16,7 +20,7 @@ class Item extends Component {
   }
 
   handleDelete = id => {
-    this.props.onClickDelete(id);
+    this.props.deleteItem(id);
   }
 
   handleComplete = id => {
@@ -50,9 +54,19 @@ Item.propTypes = {
     complete: PropTypes.bool.isRequired
   }),
   index: PropTypes.number,
-  onClickEdit: PropTypes.func,
-  onClickDelete: PropTypes.func,
+  deleteItem: PropTypes.func,
   onClickComplete: PropTypes.func,
 };
 
-export default withTranslation()(Item);
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    deleteItem: (id) => {
+      dispatch(actionDeleteItem(id));
+    }
+  }
+}
+
+export default compose(
+  connect(null, mapDispatchToProps),
+  withTranslation()
+)(Item)

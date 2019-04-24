@@ -42,22 +42,6 @@ class Todo extends Component {
     localStorage.setItem('task', JSON.stringify(items));
   }
 
-  handleDelete = id => {
-    let { items } = this.state;
-
-    for (let i = 0; i < items.length; i++) {
-      if (items[i].id === id) {
-        items.splice(i, 1);
-      }
-    }
-
-    this.setState({
-      items: items
-    });
-
-    localStorage.setItem('task', JSON.stringify(items));
-  }
-
   handleSubmit = item => {
     let { items } = this.state;
 
@@ -94,7 +78,6 @@ class Todo extends Component {
         </Row>
         <List
           onClickEdit={this.handleEdit}
-          onClickDelete={this.handleDelete}
           onClickComplete={this.handleComplete}
         />
       </Fragment>
