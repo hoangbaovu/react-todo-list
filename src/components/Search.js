@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Col, Input, Button } from 'reactstrap';
 import PropTypes from 'prop-types';
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { actionSearch } from './../actions/index';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
 
 function Search(props) {
   let [search, setSearch] = useState("");
+  const { t } = useTranslation();
 
   function handleSearch() {
     props.goSearch(search);
@@ -18,7 +18,6 @@ function Search(props) {
     props.goSearch('');
   }
 
-  const { t } = props;
   return (
     <Col md={6}>
       <div className="d-flex">
@@ -60,7 +59,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  withTranslation()
-)(Search)
+export default connect(mapStateToProps, mapDispatchToProps)(Search)

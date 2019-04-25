@@ -1,12 +1,14 @@
 import React from 'react';
 import { Button } from 'reactstrap';
 import PropTypes from 'prop-types';
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
 import { actionDeleteItem, actionSelectedItem, actionClickItem } from '../actions/index';
 
 function Item(props) {
+  const { item, index } = props;
+  const { t } = useTranslation();
+
   const handleEdit = item => {
     props.editItem(item);
   }
@@ -18,8 +20,6 @@ function Item(props) {
   const handleComplete = item => {
     props.clickItem(item);
   }
-
-  const { item, index, t } = props;
 
   let className = 'task-name';
   if (item.complete) {
@@ -63,7 +63,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-export default compose(
-  connect(null, mapDispatchToProps),
-  withTranslation()
-)(Item)
+export default connect(null, mapDispatchToProps)(Item)

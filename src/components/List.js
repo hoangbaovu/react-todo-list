@@ -2,13 +2,12 @@ import React from 'react';
 import { Table } from 'reactstrap';
 import PropTypes from 'prop-types';
 import Item from './Item';
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
 
 function List(props) {
-
-  let { items, search, t } = props;
+  let { items, search } = props;
+  const { t } = useTranslation();
   let itemsOrigin = (items !== null) ? [...items] : [];
 
   // Search
@@ -59,7 +58,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default compose(
-  connect(mapStateToProps, null),
-  withTranslation()
-)(List)
+export default connect(mapStateToProps, null)(List)
