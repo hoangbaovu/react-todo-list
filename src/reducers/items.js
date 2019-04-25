@@ -1,12 +1,9 @@
+import { reject } from 'lodash';
 import * as types from '../constants/ActionTypes';
 import * as config from '../constants/Config';
 const uuidv4 = require('uuid/v4');
 
-let initState = [
-  { id: "1", name: "Giat Ao", complete: false },
-  { id: "2", name: "Giat Quan", complete: false },
-  { id: "3", name: "Lau San", complete: false }
-];
+let initState = [];
 
 let tasks = JSON.parse(localStorage.getItem(config.ITEMS_FROM_LOCAL_STORAGE));
 initState = (tasks !== null && tasks.length > 0) ? tasks : initState;
@@ -24,8 +21,22 @@ const items = (state = initState, action) => {
       return [...state];
     case types.SUBMIT_FORM:
       let { item } = action;
+      if (item.id !== '') { //edit
+
+        // items.forEach((value, key) => {
+        //  if (value.id === item.id) {
+        //    items[key].name = item.name;
+        //  }
+        // });
+
+        state = reject(state, { id: item.id });
+        id = item.id;
+      } else {
+        id = uuidv4();
+      }
+
       state.push({
-        id: uuidv4(),
+        id,
         name: item.name,
         complete: item.complete
       });

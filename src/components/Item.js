@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { actionDeleteItem } from '../actions/index';
+import { actionDeleteItem, actionSelectedItem } from '../actions/index';
 
 class Item extends Component {
   constructor(props) {
@@ -16,7 +16,7 @@ class Item extends Component {
   }
 
   handleEdit = item => {
-    this.props.onClickEdit(item);
+    this.props.editItem(item);
   }
 
   handleDelete = id => {
@@ -60,6 +60,9 @@ Item.propTypes = {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
+    editItem: (item) => {
+      dispatch(actionSelectedItem(item));
+    },
     deleteItem: (id) => {
       dispatch(actionDeleteItem(id));
     }

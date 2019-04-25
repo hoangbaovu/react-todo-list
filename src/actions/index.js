@@ -20,3 +20,16 @@ export const actionSubmitForm = item => {
     item
   }
 }
+
+export const actionSelectedItem = item => {
+  return {
+    type: types.SELECT_ITEM,
+    item
+  }
+}
+
+export const actionUnSelectItem = () => {
+  return {
+    type: types.UNSELECT_ITEM,
+  }
+}

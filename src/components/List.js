@@ -34,7 +34,6 @@ class List extends Component {
       renderItem = items.map((item, index) => {
         return (
           <Item
-            onClickEdit={this.props.onClickEdit}
             onClickComplete={this.props.onClickComplete}
             key={index} item={item} index={index}
           />
@@ -60,7 +59,6 @@ class List extends Component {
 }
 
 List.propTypes = {
-  items: PropTypes.array,
   search: PropTypes.string
 };
 
@@ -72,6 +70,6 @@ const mapStateToProps = state => {
 }
 
 export default compose(
-  connect(mapStateToProps),
+  connect(mapStateToProps, null),
   withTranslation()
 )(List)
