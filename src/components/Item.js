@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { actionDeleteItem, actionSelectedItem } from '../actions/index';
+import { actionDeleteItem, actionSelectedItem, actionClickItem } from '../actions/index';
 
 class Item extends Component {
   constructor(props) {
@@ -23,8 +23,8 @@ class Item extends Component {
     this.props.deleteItem(id);
   }
 
-  handleComplete = id => {
-    this.props.onClickComplete(id);
+  handleComplete = item => {
+    this.props.clickItem(item);
   }
 
   render() {
@@ -65,6 +65,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     deleteItem: (id) => {
       dispatch(actionDeleteItem(id));
+    },
+    clickItem: (item) => {
+      dispatch(actionClickItem(item));
     }
   }
 }

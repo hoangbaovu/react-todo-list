@@ -42,6 +42,20 @@ const items = (state = initState, action) => {
       });
       localStorage.setItem(config.ITEMS_FROM_LOCAL_STORAGE, JSON.stringify(state));
       return [...state]
+    case types.CLICK_ITEM:
+      const complete = action.item.complete;
+      const index = state.indexOf(action.item);
+
+      state = [
+        ...state.slice(0, index),
+        {
+          ...action.item,
+          complete: !complete
+        },
+        ...state.slice(index + 1)
+      ];
+      localStorage.setItem(config.ITEMS_FROM_LOCAL_STORAGE, JSON.stringify(state));
+      return [...state];
     default:
       return state;
   }

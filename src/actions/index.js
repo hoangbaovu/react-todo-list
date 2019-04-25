@@ -14,6 +14,13 @@ export const actionDeleteItem = id => {
   }
 }
 
+export const actionClickItem = item => {
+  return {
+    type: types.CLICK_ITEM,
+    item
+  }
+}
+
 export const actionSubmitForm = item => {
   return {
     type: types.SUBMIT_FORM,

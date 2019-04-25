@@ -33,10 +33,7 @@ class List extends Component {
     if (items.length > 0) {
       renderItem = items.map((item, index) => {
         return (
-          <Item
-            onClickComplete={this.props.onClickComplete}
-            key={index} item={item} index={index}
-          />
+          <Item key={index} item={item} index={index} />
         );
       });
     };
