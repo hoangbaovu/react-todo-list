@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react';
 import { Row, Col, Card, Button } from 'reactstrap';
 import { Link } from "react-router-dom";
 import { Trans, withTranslation } from 'react-i18next';
+import * as config from '../constants/Config';
+
 
 class Home extends Component {
   constructor(props) {
@@ -13,7 +15,7 @@ class Home extends Component {
   }
 
   componentWillMount() {
-    let items = JSON.parse(localStorage.getItem('task')) || [];
+    let items = JSON.parse(localStorage.getItem(config.ITEMS_FROM_LOCAL_STORAGE)) || [];
     this.setState({
       items
     });
@@ -22,12 +24,16 @@ class Home extends Component {
   render() {
     let { items } = this.state;
     let { t } = this.props;
-    let incompleteTask = items.filter(item => item.complete);
-    let completeTask = items.filter(item => item.complete === false);
+    // let incompleteTask = items.filter(item => item.complete);
+    // let completeTask = items.filter(item => item.complete === false);
+
+    const countCompleteTask = boolean => {
+      return items.filter(item => item.complete === boolean).length;
+    }
 
     let renderCompleteTask = t('TASK_NO_LIST');
     if (items.length > 0) {
-      renderCompleteTask = <Trans i18nKey="TASK_UNDONE" count={completeTask.length} />;
+      renderCompleteTask = <Trans i18nKey="TASK_UNDONE" count={countCompleteTask(false)} />;
     }
     return (
       <Fragment>
@@ -39,7 +45,7 @@ class Home extends Component {
           </Col>
           <Col md={4}>
             <Card body inverse color="success">
-              <Trans i18nKey="TASK_DONE" count={incompleteTask.length} />
+              <Trans i18nKey="TASK_DONE" count={countCompleteTask(true)} />
             </Card>
           </Col>
           <Col md={4}>
