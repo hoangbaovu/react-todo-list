@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Button } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
@@ -6,46 +6,36 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { actionDeleteItem, actionSelectedItem, actionClickItem } from '../actions/index';
 
-class Item extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-
-    };
+function Item(props) {
+  const handleEdit = item => {
+    props.editItem(item);
   }
 
-  handleEdit = item => {
-    this.props.editItem(item);
+  const handleDelete = id => {
+    props.deleteItem(id);
   }
 
-  handleDelete = id => {
-    this.props.deleteItem(id);
+  const handleComplete = item => {
+    props.clickItem(item);
   }
 
-  handleComplete = item => {
-    this.props.clickItem(item);
+  const { item, index, t } = props;
+
+  let className = 'task-name';
+  if (item.complete) {
+    className += ' complete'
   }
 
-  render() {
-    const { item, index, t } = this.props;
-
-    let className = 'task-name';
-    if (item.complete) {
-      className += ' complete'
-    }
-
-    return (
-      <tr>
-        <td className="text-center">{index + 1}</td>
-        <td className={className} onClick={() => this.handleComplete(item)}>{item.name}</td>
-        <td className="float-right">
-          <Button onClick={() => this.handleEdit(item)} color="warning" className="mr-2">{t('EDIT')}</Button>
-          <Button onClick={() => this.handleDelete(item.id)} color="danger">{t('DELETE')}</Button>
-        </td>
-      </tr>
-    );
-  }
+  return (
+    <tr>
+      <td className="text-center">{index + 1}</td>
+      <td className={className} onClick={() => handleComplete(item)}>{item.name}</td>
+      <td className="float-right">
+        <Button onClick={() => handleEdit(item)} color="warning" className="mr-2">{t('EDIT')}</Button>
+        <Button onClick={() => handleDelete(item.id)} color="danger">{t('DELETE')}</Button>
+      </td>
+    </tr>
+  );
 }
 
 Item.propTypes = {
@@ -54,8 +44,9 @@ Item.propTypes = {
     complete: PropTypes.bool.isRequired
   }),
   index: PropTypes.number,
+  editItem: PropTypes.func,
   deleteItem: PropTypes.func,
-  onClickComplete: PropTypes.func,
+  clickItem: PropTypes.func,
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
