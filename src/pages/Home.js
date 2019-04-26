@@ -1,14 +1,14 @@
 import React, { useState, Fragment } from 'react';
 import { Row, Col, Button } from 'reactstrap';
 import { Link } from "react-router-dom";
-import { Trans, withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
 import * as config from '../constants/Config';
 import CountCompleteTask from '../components/dashboard/CountCompleteTask';
 
 function Home() {
   let [items] = useState([]);
+  const { t } = useTranslation();
   items = JSON.parse(localStorage.getItem(config.ITEMS_FROM_LOCAL_STORAGE)) || [];
 
   return (
@@ -22,7 +22,7 @@ function Home() {
         </Col>
         <Col md={4}>
           <Button color="primary" tag={Link} to="/todos/">
-            <Trans i18nKey="TASK_ADD" />
+            {t('TASK_ADD')}
           </Button>
         </Col>
       </Row>
@@ -36,7 +36,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default compose(
-  connect(mapStateToProps, null),
-  withTranslation()
-)(Home)
+export default connect(mapStateToProps, null)(Home)
