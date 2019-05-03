@@ -1,47 +1,41 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Button } from 'reactstrap';
 import PropTypes from 'prop-types';
-import { withTranslation } from 'react-i18next';
-class Item extends Component {
-  constructor(props) {
-    super(props);
+import { useTranslation } from 'react-i18next';
+import { connect } from 'react-redux';
+import { actionDeleteItem, actionSelectedItem, actionClickItem } from '../actions/index';
 
-    this.state = {
+function Item(props) {
+  const { item, index } = props;
+  const { t } = useTranslation();
 
-    };
+  const handleEdit = item => {
+    props.editItem(item);
   }
 
-  handleEdit = item => {
-    this.props.onClickEdit(item);
+  const handleDelete = id => {
+    props.deleteItem(id);
   }
 
-  handleDelete = id => {
-    this.props.onClickDelete(id);
+  const handleComplete = item => {
+    props.clickItem(item);
   }
 
-  handleComplete = id => {
-    this.props.onClickComplete(id);
+  let className = 'task-name';
+  if (item.complete) {
+    className += ' complete'
   }
 
-  render() {
-    const { item, index, t } = this.props;
-
-    let className = 'task-name';
-    if (item.complete) {
-      className += ' complete'
-    }
-
-    return (
-      <tr>
-        <td className="text-center">{index + 1}</td>
-        <td className={className} onClick={() => this.handleComplete(item)}>{item.name}</td>
-        <td className="float-right">
-          <Button onClick={() => this.handleEdit(item)} color="warning" className="mr-2">{t('EDIT')}</Button>
-          <Button onClick={() => this.handleDelete(item.id)} color="danger">{t('DELETE')}</Button>
-        </td>
-      </tr>
-    );
-  }
+  return (
+    <tr>
+      <td className="text-center">{index + 1}</td>
+      <td className={className} onClick={() => handleComplete(item)}>{item.name}</td>
+      <td className="float-right">
+        <Button onClick={() => handleEdit(item)} color="warning" className="mr-2">{t('EDIT')}</Button>
+        <Button onClick={() => handleDelete(item.id)} color="danger">{t('DELETE')}</Button>
+      </td>
+    </tr>
+  );
 }
 
 Item.propTypes = {
@@ -50,9 +44,23 @@ Item.propTypes = {
     complete: PropTypes.bool.isRequired
   }),
   index: PropTypes.number,
-  onClickEdit: PropTypes.func,
-  onClickDelete: PropTypes.func,
-  onClickComplete: PropTypes.func,
+  editItem: PropTypes.func,
+  deleteItem: PropTypes.func,
+  clickItem: PropTypes.func,
 };
 
-export default withTranslation()(Item);
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    editItem: (item) => {
+      dispatch(actionSelectedItem(item));
+    },
+    deleteItem: (id) => {
+      dispatch(actionDeleteItem(id));
+    },
+    clickItem: (item) => {
+      dispatch(actionClickItem(item));
+    }
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Item)

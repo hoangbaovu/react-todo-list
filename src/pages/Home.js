@@ -1,56 +1,39 @@
-import React, { Component, Fragment } from 'react';
-import { Row, Col, Card, Button } from 'reactstrap';
+import React, { useState, Fragment } from 'react';
+import { Row, Col, Button } from 'reactstrap';
 import { Link } from "react-router-dom";
-import { Trans, withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
+import { connect } from 'react-redux';
+import * as config from '../constants/Config';
+import CountCompleteTask from '../components/dashboard/CountCompleteTask';
 
-class Home extends Component {
-  constructor(props) {
-    super(props);
+function Home() {
+  let [items] = useState([]);
+  const { t } = useTranslation();
+  items = JSON.parse(localStorage.getItem(config.ITEMS_FROM_LOCAL_STORAGE)) || [];
 
-    this.state = {
-      items: [],
-    };
-  }
+  return (
+    <Fragment>
+      <Row>
+        <Col md={4}>
+          <CountCompleteTask items={items} color="danger" count={false} />
+        </Col>
+        <Col md={4}>
+          <CountCompleteTask items={items} color="success" count={true} />
+        </Col>
+        <Col md={4}>
+          <Button color="primary" tag={Link} to="/todos/">
+            {t('TASK_ADD')}
+          </Button>
+        </Col>
+      </Row>
+    </Fragment>
+  );
+}
 
-  componentWillMount() {
-    let items = JSON.parse(localStorage.getItem('task')) || [];
-    this.setState({
-      items
-    });
-  }
-
-  render() {
-    let { items } = this.state;
-    let { t } = this.props;
-    let incompleteTask = items.filter(item => item.complete);
-    let completeTask = items.filter(item => item.complete === false);
-
-    let renderCompleteTask = t('TASK_NO_LIST');
-    if (items.length > 0) {
-      renderCompleteTask = <Trans i18nKey="TASK_UNDONE" count={completeTask.length} />;
-    }
-    return (
-      <Fragment>
-        <Row>
-          <Col md={4}>
-            <Card body inverse color="danger">
-              {renderCompleteTask}
-            </Card>
-          </Col>
-          <Col md={4}>
-            <Card body inverse color="success">
-              <Trans i18nKey="TASK_DONE" count={incompleteTask.length} />
-            </Card>
-          </Col>
-          <Col md={4}>
-            <Button color="primary" tag={Link} to="/todos/">
-              <Trans i18nKey="TASK_ADD" />
-            </Button>
-          </Col>
-        </Row>
-      </Fragment>
-    );
+const mapStateToProps = state => {
+  return {
+    items: state.items,
   }
 }
 
-export default withTranslation()(Home);
+export default connect(mapStateToProps, null)(Home)
